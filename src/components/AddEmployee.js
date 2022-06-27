@@ -1,7 +1,8 @@
 import React from 'react'
-import { Container, Row, Col, FloatingLabel, Form, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, FloatingLabel, Form, ListGroup, Button } from 'react-bootstrap'
 
 import GlobalNavigation from './GlobalNavigation'
+import GlobalFooter from './GlobalFooter'
 
 const AddEmployee = () => {
 
@@ -114,12 +115,46 @@ const AddEmployee = () => {
                             <button size="sm" style={{color:"white",}} type="button" class="btn btn-info">ADD</button>
                         </Col>
                         <Col md="6">
+                            <h6>List of Eligibility</h6>
                             <ListGroup>
-                                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>           
+                                        <Col md="8">
+                                            <div className='align-content-center'>
+                                                Lorem Ipsum
+                                            </div>
+                                        </Col>
+                                        <Col md="4">
+                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
+                                                <Button variant="danger" size="sm">
+                                                    REMOVE
+                                                </Button>
+                                                <Button variant="info" size="sm">
+                                                    UPDATE
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>           
+                                        <Col md="8">
+                                            <div className='align-content-center'>
+                                                Lorem Ipsum 2
+                                            </div>
+                                        </Col>
+                                        <Col md="4">
+                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
+                                                <Button variant="danger" size="sm">
+                                                    REMOVE
+                                                </Button>
+                                                <Button variant="info" size="sm">
+                                                    UPDATE
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
                             </ListGroup>
                         </Col>
                       
@@ -135,20 +170,94 @@ const AddEmployee = () => {
                             <button size="sm" style={{color:"white",}} type="button" class="btn btn-info">ADD</button>
                         </Col>
                         <Col md="6">
+                            <h6>List of Trainings</h6>
                             <ListGroup>
-                                <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>           
+                                        <Col md="8">
+                                            <div className='align-content-center'>
+                                                Lorem Ipsum
+                                            </div>
+                                        </Col>
+                                        <Col md="4">
+                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
+                                                <Button variant="danger" size="sm">
+                                                    REMOVE
+                                                </Button>
+                                                <Button variant="info" size="sm">
+                                                    UPDATE
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>           
+                                        <Col md="8">
+                                            <div className='align-content-center'>
+                                                Lorem Ipsum 2
+                                            </div>
+                                        </Col>
+                                        <Col md="4">
+                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
+                                                <Button variant="danger" size="sm">
+                                                    REMOVE
+                                                </Button>
+                                                <Button variant="info" size="sm">
+                                                    UPDATE
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
                             </ListGroup>
                         </Col>
-                      
+                    </Row>
+                    <br/>
+                    <Row>
+                        <Col>
+                            <FloatingLabel controlId="eperience" label="Experience (No. of Years)">
+                                <Form.Control size='sm' type="text" placeholder="Experience (No. of Years)"/>
+                            </FloatingLabel>
+                        </Col>
+                        <Col>
+                            <FloatingLabel controlId="dataonpersonwithdisability" label="Data on Persons With Disability">
+                                <Form.Control size='sm' type="text" placeholder="Data on Persons With Disability" />
+                            </FloatingLabel>
+                        </Col>
+                    </Row>
+                    <hr/>
+                    <Row>
+                        <Col md="2">
+                            <Form.Check aria-label="option 1" label="PASS INITIAL ASSESSMENT?" />
+                        </Col>
+                        <Col md="2">
+                            <Form.Check aria-label="option 1" label="TOOK THE EXAM?" />
+                        </Col>
+                        <Col md="2">
+                            <Form.Check aria-label="option 1" label="PASSED THE EXAM?" />
+                        </Col>
+                        <Col md="2">
+                            <Form.Check aria-label="option 1" label="TOOK THE INTERVIEW?" />
+                        </Col>
+                        <Col md="2">
+                            <Form.Check aria-label="option 1" label="RECOMMENDED TO MAYOR?" />
+                        </Col>
+                        <Col md="2">
+                            <Form.Check aria-label="option 1" label="ISSUED APPT" />
+                        </Col>
+                    </Row>
+                    <hr/>
+                    <Row>
+                        <Col style={{textAlign:'right'}}>
+                            <button size="sm" style={{color:"white",}} type="button" class="btn btn-success">SUBMIT</button>
+                        </Col>
                     </Row>
 
                 </Form>
             </div>
-            
+            <br />
+            <GlobalFooter/>
         </Container>
     )
 }
