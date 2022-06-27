@@ -2,6 +2,7 @@
   "name": "hraid",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mynameisasd.github.io/hraid/",
   "dependencies": {
     "@ionic/react": "^6.1.10",
     "@testing-library/jest-dom": "^5.16.4",
