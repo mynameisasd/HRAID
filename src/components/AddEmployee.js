@@ -16,16 +16,17 @@ const AddEmployee = () => {
                 <br/>
                 <Form>
 
-                    <Row>
+                    <Row className='g-2'>
                         <Col md="3">
                             <FloatingLabel controlId="daterecieved" label="Date Recieved">
                                 <Form.Control size='sm' type="date" placeholder="Date" />
                             </FloatingLabel>
                         </Col>
+                        <Col md=""></Col>
                     </Row>
-                    <br/>
-                    <Row>
-                        <Col md="3">
+                    <br />
+                    <Row className='g-2'>
+                        <Col md="3" sm="12" xs="12">
                             <FloatingLabel controlId="firstname" label="First Name">
                                 <Form.Control size='sm' type="text" placeholder="First Name" required />
                             </FloatingLabel>
@@ -48,7 +49,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <br/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col>
                             <FloatingLabel controlId="desiredposition" label="Desired Position">
                                 <Form.Control size='sm' type="text" placeholder="Desired Position" />
@@ -56,7 +57,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <br/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col md="6">
                             <FloatingLabel controlId="address" label="Address">
                                 <Form.Control size='sm' type="text" placeholder="Address" />
@@ -74,7 +75,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <br/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col md="3">
                             <FloatingLabel controlId="birthday" label="Birthday">
                                 <Form.Control size='sm' type="date" placeholder="Birthday" />
@@ -96,7 +97,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <br/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col>
                             <FloatingLabel controlId="highesteducationalattainment" label="Highest Educational Attainment">
                                 <Form.Control size='sm' type="text" placeholder="Highest Educational Attainment" />
@@ -105,7 +106,7 @@ const AddEmployee = () => {
                     </Row>
                     <br/>
                     <hr/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col md="5">
                             <FloatingLabel controlId="eligibility" label="Eligibility">
                                 <Form.Control size='sm' type="text" placeholder="Eligibility" />
@@ -129,9 +130,7 @@ const AddEmployee = () => {
                                                 <Button variant="danger" size="sm">
                                                     REMOVE
                                                 </Button>
-                                                <Button variant="info" size="sm">
-                                                    UPDATE
-                                                </Button>
+                                                
                                             </div>
                                         </Col>
                                     </Row>
@@ -148,9 +147,7 @@ const AddEmployee = () => {
                                                 <Button variant="danger" size="sm">
                                                     REMOVE
                                                 </Button>
-                                                <Button variant="info" size="sm">
-                                                    UPDATE
-                                                </Button>
+                                                
                                             </div>
                                         </Col>
                                     </Row>
@@ -160,7 +157,7 @@ const AddEmployee = () => {
                       
                     </Row>
                     <hr />
-                    <Row>
+                    <Row className='g-2'>
                         <Col md="5">
                             <FloatingLabel controlId="training" label="Training">
                                 <Form.Control size='sm' type="text" placeholder="Training" />
@@ -184,9 +181,7 @@ const AddEmployee = () => {
                                                 <Button variant="danger" size="sm">
                                                     REMOVE
                                                 </Button>
-                                                <Button variant="info" size="sm">
-                                                    UPDATE
-                                                </Button>
+                                                
                                             </div>
                                         </Col>
                                     </Row>
@@ -203,9 +198,7 @@ const AddEmployee = () => {
                                                 <Button variant="danger" size="sm">
                                                     REMOVE
                                                 </Button>
-                                                <Button variant="info" size="sm">
-                                                    UPDATE
-                                                </Button>
+                                               
                                             </div>
                                         </Col>
                                     </Row>
@@ -214,7 +207,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <br/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col>
                             <FloatingLabel controlId="eperience" label="Experience (No. of Years)">
                                 <Form.Control size='sm' type="text" placeholder="Experience (No. of Years)"/>
@@ -227,7 +220,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <hr/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col md="2">
                             <Form.Check aria-label="option 1" label="PASS INITIAL ASSESSMENT?" />
                         </Col>
@@ -248,7 +241,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <hr/>
-                    <Row>
+                    <Row className='g-2'>
                         <Col style={{textAlign:'right'}}>
                             <button size="sm" style={{color:"white",}} type="button" class="btn btn-success">SUBMIT</button>
                         </Col>
