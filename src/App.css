@@ -38,3 +38,9 @@ body
 {
   color:white;
 }
+
+.dashboard-content
+{
+  background-color: #f8f9fa;
+  padding: 15px;
+}
