@@ -7,9 +7,12 @@ import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import AddEmployee from './components/AddEmployee';
 import Records from './components/Records';
+import Profile from './components/Profile';
 
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Assestment from './components/Assestment';
+
 
 //CDN Bootstrap
 <link
@@ -30,6 +33,8 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/addemployee' element={<AddEmployee />} />
           <Route path='/records' element={<Records />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/assestment' element={<Assestment />} />
         </Routes>
       </BrowserRouter>
     </div>

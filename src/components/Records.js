@@ -1,6 +1,7 @@
 import React from 'react'
 import GlobalNavigation from './GlobalNavigation'
 import GlobalFooter from './GlobalFooter'
+import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component'
 import { Container, Row, Col, FloatingLabel, Form, Button  } from 'react-bootstrap'
 
@@ -30,7 +31,7 @@ const Records = () => {
             cell : () => (
                 <div >
                     <Button className='color-white' variant="success"  size="sm">
-                        Update
+                        <Link className='text-white' to="/profile">Info</Link>
                     </Button>
                 </div>
             )

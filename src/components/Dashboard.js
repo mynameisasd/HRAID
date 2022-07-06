@@ -27,7 +27,7 @@ const Dashboard = () => {
                     <Col md="8">
                         <div style={{background:"white"}}>
                             <Carousel interval={4000} style={{background:'lightblue'}}>
-                                <Carousel.Item>
+                            <Carousel.Item>
                                     <Row>
                                         <Col md="4">
                                             <img
@@ -38,10 +38,31 @@ const Dashboard = () => {
                                         </Col>
                                         <Col md="8">
                                             <div style={{textAlign:"left",padding:'15px'}}>
-                                                <h2>Juan Dela Cruz</h2>
-                                                <p>Address: Puerto, Princesa City, Palawan</p>
-                                                <p>Contact No.: 09298468754</p>
-                                                <p>Email Add.: juan.delacruz@gmail.com</p>
+                                                <h2>Juan Dela Cruz 1</h2>
+                                                <Row>
+                                                    <Col md="4" className="text-right">
+                                                        Address:
+                                                    </Col>
+                                                    <Col md="8" className="text-left">
+                                                        Puerto, Princesa City, Palawan
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col md="4" className="text-right">
+                                                        Contact No.:
+                                                    </Col>
+                                                    <Col md="8" className="text-left">
+                                                        09298468754
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col md="4" className="text-right">
+                                                        Email Add.:
+                                                    </Col>
+                                                    <Col md="8" className="text-left">
+                                                        juan.delacruz@gmail.com
+                                                    </Col>
+                                                </Row>
                                             </div>
                                         </Col>
                                     </Row>
@@ -58,9 +79,30 @@ const Dashboard = () => {
                                         <Col md="8">
                                             <div style={{textAlign:"left",padding:'15px'}}>
                                                 <h2>Juan Dela Cruz 2</h2>
-                                                <p>Address: Puerto, Princesa City, Palawan</p>
-                                                <p>Contact No.: 09298468754</p>
-                                                <p>Email Add.: juan.delacruz@gmail.com</p>
+                                                <Row>
+                                                    <Col md="4" className="text-right">
+                                                        Address:
+                                                    </Col>
+                                                    <Col md="8" className="text-left">
+                                                        Puerto, Princesa City, Palawan
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col md="4" className="text-right">
+                                                        Contact No.:
+                                                    </Col>
+                                                    <Col md="8" className="text-left">
+                                                        09298468754
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col md="4" className="text-right">
+                                                        Email Add.:
+                                                    </Col>
+                                                    <Col md="8" className="text-left">
+                                                        juan.delacruz@gmail.com
+                                                    </Col>
+                                                </Row>
                                             </div>
                                         </Col>
                                     </Row>

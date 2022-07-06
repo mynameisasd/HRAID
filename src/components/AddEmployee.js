@@ -346,26 +346,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <hr/>
-                    {/* <Row className='g-2'>
-                        <Col md="2">
-                            <Form.Check aria-label="option 1" label="PASS INITIAL ASSESSMENT?" />
-                        </Col>
-                        <Col md="2">
-                            <Form.Check aria-label="option 1" label="TOOK THE EXAM?" />
-                        </Col>
-                        <Col md="2">
-                            <Form.Check aria-label="option 1" label="PASSED THE EXAM?" />
-                        </Col>
-                        <Col md="2">
-                            <Form.Check aria-label="option 1" label="TOOK THE INTERVIEW?" />
-                        </Col>
-                        <Col md="2">
-                            <Form.Check aria-label="option 1" label="RECOMMENDED TO MAYOR?" />
-                        </Col>
-                        <Col md="2">
-                            <Form.Check aria-label="option 1" label="ISSUED APPT" />
-                        </Col>
-                    </Row> */}
+                   
                   
                     <Row className='g-2'>
                         <Col style={{textAlign:'right'}}>

@@ -8,7 +8,7 @@ const GlobalFooter = () => {
         <div className='global-footer'>
             <Row >
                 <Col>
-                    <h6>Human Resource Aplicants Information Database</h6>
+                    <h6>Human Resource Applicants Information Database</h6>
                 </Col>
             </Row>
         </div>
