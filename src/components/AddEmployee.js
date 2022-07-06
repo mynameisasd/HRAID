@@ -16,21 +16,79 @@ const AddEmployee = () => {
 
     function handleNewDesiredPositionChange(e){
 
-        setNewDesiredPosition(e.target.value);
+        setNewDesiredPosition(e.target.value)
         
     }
 
     function addDesiredPositionToArray(){
-        
-            let arr = desiredPosition;
-            arr.push(newDesiredPosition);
-            setNewDesiredPosition('');
+    
+            if(newDesiredPosition != '')
+            {
+                let arr = desiredPosition
+                arr.push(newDesiredPosition)
+                setNewDesiredPosition('')
+            }
+            else
+            {
+                alert('Desired Position is null')
+            }
+           
     }
 
- 
     //----------------->
 
+    //<---------------- Eligibility Array
 
+    const [ eligibility, setEligibility ] = useState([])
+    const [ newEligibility, setNewEligibility ] = useState('')
+
+    function handleNewEligibilityChange(e){
+        setNewEligibility(e.target.value)
+    }
+
+    function addEligibilityToArray(){
+        if(newEligibility != '')
+        {
+            let arr = eligibility
+            arr.push(newEligibility)
+            setNewEligibility('')
+        }
+        else
+        {
+            alert('Eligibiliy is null')
+        }
+       
+    }
+
+    //--------------->
+
+
+    //<----------------
+
+    const [ training, setTraining ] = useState([])
+    const [ newTraining, setNewTraining ] = useState('')
+
+    function handleNewTrainingChange(e){
+        setNewTraining(e.target.value)
+    }
+
+    function addTrainingToArray(){
+        if(newTraining != '')
+        {
+            let arr = training
+            arr.push(newTraining)
+            setNewTraining('')
+        }
+        else
+        {
+            alert('Training is null')
+        }
+    }
+
+
+
+
+    //------------->
 
     //submit the form using react hook form
     const onSubmit = (data  ) => {
@@ -116,7 +174,6 @@ const AddEmployee = () => {
                                                                 let i = arr.indexOf(index)
                                                                 arr.splice(i, 1);
                                                                 setDesiredPosition(arr)
-                                                                console.log(desiredPosition)
                                                             }}>
                                                             REMOVE
                                                         </Button>
@@ -185,49 +242,46 @@ const AddEmployee = () => {
                     <Row className='g-2'>
                         <Col md="5">
                             <FloatingLabel controlId="eligibility" label="Eligibility">
-                                <Form.Control size='sm' type="text" placeholder="Eligibility" />
+                                <Form.Control size='sm' type="text" placeholder="Eligibility" value={newEligibility} onChange={handleNewEligibilityChange} />
                             </FloatingLabel>
                         </Col>
                         <Col md="1">
-                            <button size="sm" style={{color:"white",}} type="button" class="btn btn-info">ADD</button>
+                            <button size="sm" style={{color:"white",}} type="button" class="btn btn-info" onClick={addEligibilityToArray}>ADD</button>
                         </Col>
                         <Col md="6">
                             <h6>List of Eligibility</h6>
                             <ListGroup>
-                                <ListGroup.Item>
-                                    <Row>           
-                                        <Col md="8">
-                                            <div className='align-content-center'>
-                                                Lorem Ipsum
-                                            </div>
-                                        </Col>
-                                        <Col md="4">
-                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
-                                                <Button variant="danger" size="sm">
-                                                    REMOVE
-                                                </Button>
-                                                
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Row>           
-                                        <Col md="8">
-                                            <div className='align-content-center'>
-                                                Lorem Ipsum 2
-                                            </div>
-                                        </Col>
-                                        <Col md="4">
-                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
-                                                <Button variant="danger" size="sm">
-                                                    REMOVE
-                                                </Button>
-                                                
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
+                                
+                                {
+                                    eligibility.map((value, index) =>
+                                        <ListGroup.Item>
+                                            <Row>           
+                                                <Col md="8">
+                                                    <div className='align-content-center'>
+                                                        {value}
+                                                    </div>
+                                                </Col>
+                                                <Col md="4">
+                                                    <div style={{display:"inline-grid",gridGap:"10px"}}>
+                                                        <Button 
+                                                        variant="danger" 
+                                                        size="sm"
+                                                        onClick={()=> {
+                                                            let arr = [...eligibility]
+                                                            let i = arr.indexOf(index)
+                                                            arr.splice(i, 1);
+                                                            setEligibility(arr)
+                                                        }}
+                                                        >
+                                                            REMOVE
+                                                        </Button>
+                                                        
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </ListGroup.Item>
+                                    )
+                                }
                             </ListGroup>
                         </Col>
                       
@@ -236,49 +290,45 @@ const AddEmployee = () => {
                     <Row className='g-2'>
                         <Col md="5">
                             <FloatingLabel controlId="training" label="Training">
-                                <Form.Control size='sm' type="text" placeholder="Training" />
+                                <Form.Control size='sm' type="text" placeholder="Training" value={newTraining} onChange={handleNewTrainingChange} />
                             </FloatingLabel>
                         </Col>
                         <Col md="1">
-                            <button size="sm" style={{color:"white",}} type="button" class="btn btn-info">ADD</button>
+                            <button size="sm" style={{color:"white",}} type="button" class="btn btn-info" onClick={addTrainingToArray} >ADD</button>
                         </Col>
                         <Col md="6">
                             <h6>List of Trainings</h6>
                             <ListGroup>
-                                <ListGroup.Item>
-                                    <Row>           
-                                        <Col md="8">
-                                            <div className='align-content-center'>
-                                                Lorem Ipsum
-                                            </div>
-                                        </Col>
-                                        <Col md="4">
-                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
-                                                <Button variant="danger" size="sm">
-                                                    REMOVE
-                                                </Button>
-                                                
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Row>           
-                                        <Col md="8">
-                                            <div className='align-content-center'>
-                                                Lorem Ipsum 2
-                                            </div>
-                                        </Col>
-                                        <Col md="4">
-                                            <div style={{display:"inline-grid",gridGap:"10px"}}>
-                                                <Button variant="danger" size="sm">
-                                                    REMOVE
-                                                </Button>
-                                               
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
+                                {
+                                    training.map((value, index)=>
+                                        <ListGroup.Item>
+                                            <Row>           
+                                                <Col md="8">
+                                                    <div className='align-content-center'>
+                                                        {value}
+                                                    </div>
+                                                </Col>
+                                                <Col md="4">
+                                                    <div style={{display:"inline-grid",gridGap:"10px"}}>
+                                                        <Button 
+                                                            variant="danger"
+                                                            size="sm"
+                                                            onClick={()=>{
+                                                                let arr = [...training]
+                                                                let i = arr.indexOf(index)
+                                                                arr.splice(i, 1);
+                                                                setTraining(arr)
+                                                            }}
+                                                            >
+                                                            REMOVE
+                                                        </Button>
+                                                        
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </ListGroup.Item>
+                                    )
+                                }
                             </ListGroup>
                         </Col>
                     </Row>
