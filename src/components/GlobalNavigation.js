@@ -1,16 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { Row, Col, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { BrowserRouter, Link } from 'react-router-dom';
-
+import { Row, Col, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 import MyImage from '../img/HR LOGO.png';
 
 const GlobalNavigation = () => {
 
+    const cookies = new Cookies();
+    const navigate = useNavigate();
+
+
+    useEffect(()=>{
+
+        if(cookies.get('isLogin') == null)
+        {
+            alert('Please Login');
+            navigate('/login');
+        }
+        
+
+    },[])
+
+    function logout(){
+        cookies.remove('isLogin');
+        navigate('/login');
+    }
+
     return (
         <Row>
-            <Col>
+            
+            <Col md="10">
                 <Navbar style={{padding:"10px"}} bg="light" expand="lg">
                     <Navbar.Brand href="#home"><img style={{width:"50px"}} src={MyImage} alt="Hr Logo" /> HRAID</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,6 +51,11 @@ const GlobalNavigation = () => {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
+            </Col>
+            <Col md="2" style={{display:'grid', justifyItems:'center', alignItems:'center', background:'#eee'}}>
+                
+                        <Button variant="danger" size="sm" onClick={logout}>LOGOUT</Button>
+                
             </Col>
         </Row>
     )

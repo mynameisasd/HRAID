@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Carousel } from "react-bootstrap";
 import GlobalFooter from "./GlobalFooter";
+import Cookies from "universal-cookie";
 
 
 import GlobalNavigation from './GlobalNavigation'
@@ -12,8 +13,11 @@ import MyImage from '../img/User-avatar.png';
 
 const Dashboard = () => {
 
+    const cookies = new Cookies();
+
     const [ eligibility , setEligibility ] = useState([]);
 
+    console.log(cookies.get('isLogin'));
 
 
     return (
