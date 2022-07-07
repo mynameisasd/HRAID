@@ -140,6 +140,7 @@ const AddEmployee = () => {
                         </Col>
                     </Row>
                     <br/>
+                    <hr />
                     <Row className='g-2'>
                         <Col md="5">
                             <FloatingLabel controlId="desiredposition" label="Desired Position">
@@ -155,7 +156,7 @@ const AddEmployee = () => {
                                 <ListGroup>
                                     {
                                         desiredPosition.map((position, index) =>
-                                        <ListGroup.Item>
+                                        <ListGroup.Item key={index}>
                                             <Row >           
                                                 <Col md="8">
                                                     <div className='align-content-center'>
@@ -168,10 +169,9 @@ const AddEmployee = () => {
                                                         <Button 
                                                             variant="danger" 
                                                             size="sm" 
-                                                            key={index} 
                                                             onClick={()=>{
                                                                 let arr = [...desiredPosition]
-                                                                let i = arr.indexOf(index)
+                                                                let i = arr.indexOf(position)
                                                                 arr.splice(i, 1);
                                                                 setDesiredPosition(arr)
                                                             }}>
@@ -189,6 +189,7 @@ const AddEmployee = () => {
                         </Col>
                       
                     </Row>
+                    <hr />
                     <br/>
                     <Row className='g-2'>
                         <Col md="6">
@@ -254,7 +255,7 @@ const AddEmployee = () => {
                                 
                                 {
                                     eligibility.map((value, index) =>
-                                        <ListGroup.Item>
+                                        <ListGroup.Item  key={index}>
                                             <Row>           
                                                 <Col md="8">
                                                     <div className='align-content-center'>
@@ -268,7 +269,7 @@ const AddEmployee = () => {
                                                         size="sm"
                                                         onClick={()=> {
                                                             let arr = [...eligibility]
-                                                            let i = arr.indexOf(index)
+                                                            let i = arr.indexOf(value)
                                                             arr.splice(i, 1);
                                                             setEligibility(arr)
                                                         }}
@@ -301,7 +302,7 @@ const AddEmployee = () => {
                             <ListGroup>
                                 {
                                     training.map((value, index)=>
-                                        <ListGroup.Item>
+                                        <ListGroup.Item  key={index}>
                                             <Row>           
                                                 <Col md="8">
                                                     <div className='align-content-center'>
@@ -315,7 +316,7 @@ const AddEmployee = () => {
                                                             size="sm"
                                                             onClick={()=>{
                                                                 let arr = [...training]
-                                                                let i = arr.indexOf(index)
+                                                                let i = arr.indexOf(value)
                                                                 arr.splice(i, 1);
                                                                 setTraining(arr)
                                                             }}

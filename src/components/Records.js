@@ -16,7 +16,7 @@ const Records = () => {
             name: 'Pictures',
             width:'100px',
             cell: () => (
-                <img src={MyImage} />
+                <img src={MyImage} alt="picture" />
             )
             
         },

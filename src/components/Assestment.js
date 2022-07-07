@@ -38,6 +38,11 @@ const Assestment = () =>{
                                 </Col>
                             </Row>
                             <br/>
+                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                    <Form.Label>Remarks</Form.Label>
+                                    <Form.Control as="textarea" rows={3} />
+                                </Form.Group>
+                            <br />
                             <Button variant="success" size="sm">
                                 Save
                             </Button>
