@@ -13,13 +13,6 @@ import MyImage from '../img/User-avatar.png';
 
 const Dashboard = () => {
 
-    const cookies = new Cookies();
-
-    const [ eligibility , setEligibility ] = useState([]);
-
-    console.log(cookies.get('isLogin'));
-
-
     return (
         <Container>
             <GlobalNavigation/>

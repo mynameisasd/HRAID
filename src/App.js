@@ -12,6 +12,7 @@ import Profile from './components/Profile';
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Assestment from './components/Assestment';
+import UserDeleteConfirmation from './components/UserDeleteConfirmation';
 
 
 //CDN Bootstrap
@@ -33,8 +34,9 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/addemployee' element={<AddEmployee />} />
           <Route path='/records' element={<Records />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile/:emp_id' element={<Profile />} />
           <Route path='/assestment' element={<Assestment />} />
+          <Route path='/delete/:emp_id' element={<UserDeleteConfirmation />} />
         </Routes>
       </BrowserRouter>
     </div>

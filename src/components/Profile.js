@@ -1,12 +1,57 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import GlobalFooter from './GlobalFooter'
 import GlobalNavigation from './GlobalNavigation'
-import { Link } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 import MyImage from '../img/User-avatar.png';
 
-const Profile = () => {
+const Profile = (props) => {
+
+    const { emp_id } = useParams();
+    const [ userInfo, setUserInfo ] = useState([]); 
+    const [ userDesiredPosition, setUserDesiredPosition ] = useState([]);
+    const [ userEligibility, setUserEligibility ] = useState([]);
+    const [ userTraining, setUserTraining ] = useState([]);
+
+    useEffect(()=>{ 
+
+        axios.post('http://localhost/hraid_api/get_user_profile.php', {
+        emp_id: emp_id,
+        }).then(function (response) {
+
+            let arr = response.data;
+            setUserInfo(arr[0]);
+        
+        });
+
+        axios.post('http://localhost/hraid_api/get_desired_position.php', {
+        emp_id: emp_id,
+        }).then(function (response) {
+
+            let arr = response.data;
+            setUserDesiredPosition(arr);
+        
+        });
+
+        axios.post('http://localhost/hraid_api/get_eligibility.php', {
+        emp_id: emp_id,
+        }).then(function (response) {
+
+            let arr = response.data;
+            setUserEligibility(arr);
+        });
+    
+        axios.post('http://localhost/hraid_api/get_training.php', {
+        emp_id: emp_id,
+        }).then(function (response) {
+
+            let arr = response.data;
+            setUserTraining(arr);
+        });
+
+
+    },[])
 
 
     return (
@@ -20,10 +65,10 @@ const Profile = () => {
                     </Col>
                     <Col md="10">
                         <div style={{textAlign:'left', padding:'15px'}} >
-                            <b><h4>Juan Dela Cruz</h4></b>
-                            <p>Sorrilo Street, Barangay Poblacion, Taytay, Palawan</p>
-                            <p>buitizon.jerick@yahoo.com</p>
-                            <p>09498339310</p>
+                            <b><h4>{ userInfo.emp_firstname + ' '  + userInfo.emp_middlename + ' ' + userInfo.emp_lastname + ' ' + userInfo.emp_suffix }</h4></b>
+                            <p>{ userInfo.emp_address }</p>
+                            <p>{ userInfo.emp_emailaddress }</p>
+                            <p>{ userInfo.emp_contactnumber }</p>
                         </div>
                     </Col>
                 </Row>
@@ -36,7 +81,7 @@ const Profile = () => {
                                     Birthday:
                                 </Col>
                                 <Col md="10" style={{textAlign:'left'}}>
-                                    September 14, 1997
+                                    {userInfo.emp_birthday}
                                 </Col>
                             </Row>
                             <Row>
@@ -44,7 +89,7 @@ const Profile = () => {
                                     Gender:
                                 </Col>
                                 <Col md="10" style={{textAlign:'left'}}>
-                                    Male
+                                    {userInfo.emp_gender}
                                 </Col>
                             </Row>
                             <Row>
@@ -52,7 +97,7 @@ const Profile = () => {
                                     Religion:
                                 </Col>
                                 <Col md="10" style={{textAlign:'left'}}>
-                                    Catholic
+                                    {userInfo.emp_religion}
                                 </Col>
                             </Row>
                             <hr/>
@@ -61,7 +106,22 @@ const Profile = () => {
                                    Highest Educational Attainment:
                                 </Col>
                                 <Col md="8" style={{textAlign:'left'}}>
-                                    College Graduate
+                                    {userInfo.highesteducationalattainment}
+                                </Col>
+                            </Row>
+                            <br/>
+                            <Row>
+                                <Col md="4" style={{textAlign:'right'}}>
+                                   Desired Position:
+                                </Col>
+                                <Col md="8" style={{textAlign:'left'}}>
+                                    <ul>
+                                        {
+                                            userDesiredPosition.map((value, index) =>
+                                                <li key={index}>{value.dp_position}</li>
+                                          )
+                                        }
+                                    </ul>
                                 </Col>
                             </Row>
                             <br/>
@@ -71,8 +131,11 @@ const Profile = () => {
                                 </Col>
                                 <Col md="8" style={{textAlign:'left'}}>
                                     <ul>
-                                        <li>Board Secretary II</li>
-                                        <li>Audio Visual Equipment Operator II</li>
+                                       {
+                                        userEligibility.map((value, index)=>
+                                            <li key={index}>{value.eli_eligibility}</li>
+                                        )
+                                       }
                                     </ul>
                                 </Col>
                             </Row>
@@ -83,8 +146,11 @@ const Profile = () => {
                                 </Col>
                                 <Col md="8" style={{textAlign:'left'}}>
                                     <ul>
-                                        <li>Gender Sensitivity</li>
-                                        <li>Computer System Servicing NCII</li>
+                                        {
+                                            userTraining.map((value, index) =>
+                                                <li key={index}>{value.trai_training}</li>
+                                            )
+                                        }
                                     </ul>
                                 </Col>
                             </Row>
@@ -94,7 +160,7 @@ const Profile = () => {
                                    Experience <i>No. of Years</i>:
                                 </Col>
                                 <Col md="8" style={{textAlign:'left'}}>
-                                    4
+                                    {userInfo.emp_experience }
                                 </Col>
                             </Row>
                             <br/>
@@ -103,7 +169,7 @@ const Profile = () => {
                                    Data on Person with Disability:
                                 </Col>
                                 <Col md="8" style={{textAlign:'left'}}>
-                                    N/A
+                                    {userInfo.emp_dataonpersonwithdisability}
                                 </Col>
                             </Row>
                         </div>
@@ -133,7 +199,7 @@ const Profile = () => {
                                 <hr/>
                                 <br/>
                                 <Button variant="danger" size="sm">
-                                    Delete
+                                    <Link className="text-white" to={ "/delete/" + userInfo.emp_id}>Delete</Link>
                                 </Button>
                                 
                             </div>

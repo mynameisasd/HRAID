@@ -4,10 +4,9 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import GlobalNavigation from './GlobalNavigation'
 import GlobalFooter from './GlobalFooter'
-
 const AddEmployee = () => {
 
-    const {register, handleSubmit, errors } = useForm();
+    const {register, handleSubmit, errors, reset } = useForm();
 
     // <------------------------ Desired Position Array
     const [ desiredPosition, setDesiredPosition ] = useState([])
@@ -91,11 +90,19 @@ const AddEmployee = () => {
 
     //submit the form using react hook form
     const onSubmit = (data) => {
+
+        data.desired_position = desiredPosition;
+        data.eligibility = eligibility;
+        data.training = training;
         
         axios.post('http://localhost:80/hraid_api/add_employee.php', data )
             .then(function (response) {
  
-               console.log(response.data);
+               alert('Employee Added');
+               reset();
+               setDesiredPosition([]);
+               setTraining([]);
+               setEligibility([]);
             
             })
             .catch(function (error) {

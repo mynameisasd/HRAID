@@ -53,20 +53,6 @@ const Login = () =>{
     
     }
 
- 
-    // useEffect(() => {
-
-    //     axios.get('http://localhost/hraid_api/get_user_info.php')
-    //     .then(function (response) {
-    //         // handle success
-    //         console.log(response.data);
-    //     });
-
-    // },[]);
-
-     
-   
-
     return (
         <Container>
             <br/>
