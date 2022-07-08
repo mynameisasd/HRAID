@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, FloatingLabel, Form, ListGroup, Button } from 'react-bootstrap'
-
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
-
 import GlobalNavigation from './GlobalNavigation'
 import GlobalFooter from './GlobalFooter'
 
@@ -91,9 +90,18 @@ const AddEmployee = () => {
     //------------->
 
     //submit the form using react hook form
-    const onSubmit = (data  ) => {
+    const onSubmit = (data) => {
         
-        console.log(data)
+        axios.post('http://localhost:80/hraid_api/add_employee.php', data )
+            .then(function (response) {
+ 
+               console.log(response.data);
+            
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+
     }
 
     return (
@@ -110,7 +118,7 @@ const AddEmployee = () => {
                     <Row className='g-2'>
                         <Col md="3">
                             <FloatingLabel controlId="daterecieved" label="Date Recieved">
-                                <Form.Control size='sm' type="date" placeholder="Date" name="dateReceived" {...register('dateReceived')} required />
+                                <Form.Control size='sm' type="date" placeholder="Date" name="datereceived" {...register('datereceived')} required />
                                
                             </FloatingLabel>
                         </Col>
@@ -130,12 +138,12 @@ const AddEmployee = () => {
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="lastname" label="Last Name">
-                                <Form.Control size='sm' type="text" placeholder="Last Name" name="lastname" {...register('middlename')} required />
+                                <Form.Control size='sm' type="text" placeholder="Last Name" name="lastname" {...register('lastname')} required />
                             </FloatingLabel>
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="suffix" label="Suffix">
-                                <Form.Control size='sm' type="text" placeholder="Suffix" name="suffix" {...register('middlename')} />
+                                <Form.Control size='sm' type="text" placeholder="Suffix" name="suffix" {...register('suffix')} />
                             </FloatingLabel>
                         </Col>
                     </Row>

@@ -27,14 +27,13 @@ const Login = () =>{
 
     function login(){
 
-        axios.post('http://localhost:80/hraid_api/login.php', {
+        axios.post('http://localhost/hraid_api/login.php', {
             username: username,
             password: password
-            })
-            .then(function (response) {
- 
+            }).then(function (response) {
+
                 let userCredentials = response.data;
-                if(userCredentials[0].user_username == username && userCredentials[0].user_password == password )
+                if(userCredentials[0]['user_username'] == username && userCredentials[0]['user_password'] == password )
                 {
                     cookies.set('isLogin', true);
                     setUsername('');
@@ -42,16 +41,14 @@ const Login = () =>{
                     navigate('/dashboard');
                     
                 }
-                else
+                
+                if(userCredentials == 'no user')
                 {
                     alert('try again');
                     setUsername('');
                     setPassword('');
                 }
             
-            })
-            .catch(function (error) {
-            console.log(error);
             });
     
     }
