@@ -33,8 +33,9 @@ const Records = () => {
         {
             name: 'Pictures',
             width:'100px',
-            cell: () => (
-                <img src={MyImage} alt="picture" />
+            cell: (row) => (
+                row.emp_profile_picture != '' ? <img src={'http://localhost:80/hraid_api/upload_pictures/' + row.emp_profile_picture } alt="Profile Picture" /> : <img src={MyImage} alt="Profile Picture" />
+
             )
             
         },

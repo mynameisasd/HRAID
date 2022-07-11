@@ -26,7 +26,6 @@ const UserDeleteConfirmation = () => {
 
     },[])
 
-
     function deleteConfirm (){
 
         axios.post('http://localhost/hraid_api/delete_user.php', {
@@ -35,7 +34,6 @@ const UserDeleteConfirmation = () => {
 
                 alert("Data Deleted")
                 navigate('/records');   
-
 
             });
     }

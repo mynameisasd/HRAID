@@ -13,6 +13,7 @@ import Profile from './components/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Assestment from './components/Assestment';
 import UserDeleteConfirmation from './components/UserDeleteConfirmation';
+import UploadProfilePicture from './components/UploadProfilePicture';
 
 
 //CDN Bootstrap
@@ -37,6 +38,7 @@ function App() {
           <Route path='/profile/:emp_id' element={<Profile />} />
           <Route path='/assestment' element={<Assestment />} />
           <Route path='/delete/:emp_id' element={<UserDeleteConfirmation />} />
+          <Route path='/uploadpp/:emp_id' element={<UploadProfilePicture />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -61,7 +61,9 @@ const Profile = (props) => {
             <div className='profile-container'>
                 <Row className='r-pad-marg' style={{background:'white',}}>
                     <Col md="2">
-                        <img src={MyImage} alt="Profile Picture" />
+                        {
+                            userInfo.emp_profile_picture != '' ? <img src={'http://localhost:80/hraid_api/upload_pictures/' + userInfo.emp_profile_picture } alt="Profile Picture" /> : <img src={MyImage} alt="Profile Picture" />
+                        }
                     </Col>
                     <Col md="10">
                         <div style={{textAlign:'left', padding:'15px'}} >
@@ -185,7 +187,7 @@ const Profile = (props) => {
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
-                                    Upload Picture
+                                <Link className="text-white" to={ "/uploadpp/" + userInfo.emp_id}>Upload Picture</Link>
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
