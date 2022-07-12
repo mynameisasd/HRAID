@@ -117,7 +117,7 @@ const AddEmployee = () => {
             <GlobalNavigation />
             <br/>
             <div className='form-container'>
-                <h2 style={{textAlign:"left"}}>ADD EMPLOYEE</h2>
+                <h2 style={{textAlign:"left"}}>UPDATE EMPLOYEE</h2>
                 <br/>
 
                 <form onSubmit={handleSubmit(onSubmit)}>

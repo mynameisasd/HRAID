@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import GlobalNavigation from './GlobalNavigation'
 import GlobalFooter from './GlobalFooter'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 
 const EditEmployee = () => {
@@ -12,7 +12,7 @@ const EditEmployee = () => {
     const {register, handleSubmit, errors, reset } = useForm();
     const { emp_id } = useParams();
     const [ userInfo, setUserInfo ] = useState([{}]) 
-
+    const navigate = useNavigate();
 
     //load the info of the employee
     useEffect(()=>{
@@ -21,6 +21,9 @@ const EditEmployee = () => {
             .then(function (response) {
                 let info = response.data;
                 setUserInfo(info[0]);
+
+                reset({ ...info[0]});
+                
             })
     },[])
 
@@ -112,15 +115,17 @@ const EditEmployee = () => {
         data.desired_position = desiredPosition;
         data.eligibility = eligibility;
         data.training = training;
+        data.emp_id = emp_id;
         
         axios.post('http://localhost:80/hraid_api/update_employee.php', data )
             .then(function (response) {
  
-               alert('Employee Added');
+               alert('Info Updated');
                reset();
                setDesiredPosition([]);
                setTraining([]);
                setEligibility([]);
+               navigate('/profile/' + emp_id); 
             
             })
             .catch(function (error) {
@@ -205,7 +210,7 @@ const EditEmployee = () => {
                     <Row className='g-2'>
                         <Col md="3">
                             <FloatingLabel controlId="daterecieved" label="Date Recieved">
-                                <Form.Control size='sm' type="date" placeholder="Date" name="datereceived" value={userInfo.emp_datereceived} {...register('datereceived')} required />
+                                <Form.Control size='sm' type="date" placeholder="Date" defaultValue={userInfo.emp_datereceived} name="datereceived" {...register('datereceived')} required />
                                
                             </FloatingLabel>
                         </Col>
@@ -215,22 +220,22 @@ const EditEmployee = () => {
                     <Row className='g-2'>
                         <Col md="3" sm="12" xs="12">
                             <FloatingLabel controlId="firstname" label="First Name">
-                                <Form.Control size='sm' type="text" placeholder="First Name" name="firstname"  value={userInfo.emp_firstname} {...register('firstname')} required />
+                                <Form.Control size='sm' type="text" placeholder="First Name" name="firstname"  defaultValue={userInfo.emp_firstname} {...register('firstname')} required />
                             </FloatingLabel>
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="middlename" label="Middle Name">
-                                <Form.Control size='sm' type="text" placeholder="Middle Name" name="middlename"  value={userInfo.emp_middlename} {...register('middlename')} />
+                                <Form.Control size='sm' type="text" placeholder="Middle Name" name="middlename"  defaultValue={userInfo.emp_middlename} {...register('middlename')} />
                             </FloatingLabel>
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="lastname" label="Last Name">
-                                <Form.Control size='sm' type="text" placeholder="Last Name" name="lastname"  value={userInfo.emp_lastname} {...register('lastname')} required />
+                                <Form.Control size='sm' type="text" placeholder="Last Name" name="lastname"  defaultValue={userInfo.emp_lastname} {...register('lastname')} required />
                             </FloatingLabel>
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="suffix" label="Suffix">
-                                <Form.Control size='sm' type="text" placeholder="Suffix" name="suffix"  value={userInfo.emp_suffix} {...register('suffix')} />
+                                <Form.Control size='sm' type="text" placeholder="Suffix" name="suffix"  defaultValue={userInfo.emp_suffix} {...register('suffix')} />
                             </FloatingLabel>
                         </Col>
                     </Row>
@@ -289,17 +294,17 @@ const EditEmployee = () => {
                     <Row className='g-2'>
                         <Col md="6">
                             <FloatingLabel controlId="address" label="Address">
-                                <Form.Control size='sm' type="text" placeholder="Address" name="address"  value={userInfo.emp_address} {...register('address')} required />
+                                <Form.Control size='sm' type="text" placeholder="Address" name="address"  defaultValue={userInfo.emp_address} {...register('address')} required />
                             </FloatingLabel>
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="emailaddress" label="Email Address">
-                                <Form.Control size='sm' type="text" placeholder="Email Address" name="emailaddress"  value={userInfo.emp_emailaddress} {...register('emailaddress')} />
+                                <Form.Control size='sm' type="text" placeholder="Email Address" name="emailaddress"  defaultValue={userInfo.emp_emailaddress} {...register('emailaddress')} />
                             </FloatingLabel>
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="contactnumber" label="Contact Number">
-                                <Form.Control size='sm' type="text" placeholder="Contact Number" name="contactnumber"  value={userInfo.emp_contactnumber} {...register('contactnumber')}/>
+                                <Form.Control size='sm' type="text" placeholder="Contact Number" name="contactnumber"  defaultValue={userInfo.emp_contactnumber} {...register('contactnumber')}/>
                             </FloatingLabel>
                         </Col>
                     </Row>
@@ -307,12 +312,12 @@ const EditEmployee = () => {
                     <Row className='g-2'>
                         <Col md="3">
                             <FloatingLabel controlId="birthday" label="Birthday">
-                                <Form.Control size='sm' type="date" placeholder="Birthday" name="birthday"  value={userInfo.emp_birthday} {...register('birthday')} required />
+                                <Form.Control size='sm' type="date" placeholder="Birthday" name="birthday"  defaultValue={userInfo.emp_birthday} {...register('birthday')} required />
                             </FloatingLabel>
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="floatingSelectGrid" label="Gender">
-                            <Form.Select aria-label="Floating label select example" name="genter"  value={userInfo.emp_gender} {...register("gender")} >
+                            <Form.Select aria-label="Floating label select example" name="genter"  defaultValue={userInfo.emp_gender} {...register("gender")} >
                                 <option>Open this select menu</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -321,7 +326,7 @@ const EditEmployee = () => {
                         </Col>
                         <Col md="3">
                             <FloatingLabel controlId="religion" label="Religion">
-                                <Form.Control size='sm' type="text" placeholder="Religion" name="religion" value={userInfo.emp_religion }{...register('religion')}   />
+                                <Form.Control size='sm' type="text" placeholder="Religion" name="religion" defaultValue={userInfo.emp_religion }{...register('religion')}   />
                             </FloatingLabel>
                         </Col>
                     </Row>
@@ -329,7 +334,7 @@ const EditEmployee = () => {
                     <Row className='g-2'>
                         <Col>
                             <FloatingLabel controlId="highesteducationalattainment" label="Highest Educational Attainment">
-                                <Form.Control size='sm' type="text" placeholder="Highest Educational Attainment" name="highesteducationalattainment"  value={userInfo.emp_highesteducationalattainment} {...register('highesteducationalattainment')} />
+                                <Form.Control size='sm' type="text" placeholder="Highest Educational Attainment" name="highesteducationalattainment"  defaultValue={userInfo.emp_highesteducationalattainment} {...register('highesteducationalattainment')} />
                             </FloatingLabel>
                         </Col>
                     </Row>
@@ -432,12 +437,12 @@ const EditEmployee = () => {
                     <Row className='g-2'>
                         <Col>
                             <FloatingLabel controlId="eperience" label="Experience (No. of Years)">
-                                <Form.Control size='sm' type="text" placeholder="Experience (No. of Years)" name="experience"  value={userInfo.emp_experience} {...register('experience')}  />
+                                <Form.Control size='sm' type="text" placeholder="Experience (No. of Years)" name="experience"  defaultValue={userInfo.emp_experience} {...register('experience')}  />
                             </FloatingLabel>
                         </Col>
                         <Col>
                             <FloatingLabel controlId="dataonpersonwithdisability" label="Data on Persons With Disability">
-                                <Form.Control size='sm' type="text" placeholder="Data on Persons With Disability" name="dataonpersonwithdisability"  value={userInfo.emp_dateonpersonwithdisability} {...register('dataonpersonwithdisability')} />
+                                <Form.Control size='sm' type="text" placeholder="Data on Persons With Disability" name="dataonpersonwithdisability"  defaultValue={userInfo.emp_dataonpersonwithdisability} {...register('dataonpersonwithdisability')} />
                             </FloatingLabel>
                         </Col>
                     </Row>

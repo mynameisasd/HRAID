@@ -1,10 +1,14 @@
 import React from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { useParams } from 'react-router'
+import EmployeeBasicInfo from './EmployeeBasicInfo'
 import GlobalFooter from './GlobalFooter'
 import GlobalNavigation from './GlobalNavigation'
 
 
 const Assestment = () =>{
+    
+    const { emp_id } = useParams();
 
     return (
         <Container>
@@ -14,7 +18,12 @@ const Assestment = () =>{
             <div className='assestment-container'>
                 <Row>
                     <Col>
-                        <div style={{background:'white', padding:'15px'}}>
+                        <EmployeeBasicInfo emp_id={emp_id} />                   
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div style={{background:'white', padding:'15px', }}>
                             <h1>Assestment</h1>
                             <br />
                             <Row className='g-2'>

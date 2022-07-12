@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import GlobalFooter from './GlobalFooter';
 import GlobalNavigation from './GlobalNavigation';
 import axios from 'axios';
+import EmployeeBasicInfo from './EmployeeBasicInfo';
 
 
 const UploadProfilePicture = () => {
@@ -41,9 +42,10 @@ const UploadProfilePicture = () => {
         <Container>
             <GlobalNavigation/>
             <br/>
-            <h1>Upload Profile Picture</h1>
-            <h1>Employee ID: {emp_id}</h1>
-
+            <EmployeeBasicInfo emp_id={emp_id} />
+            <br/>
+            <br/>
+            <br/>
             <Form.Group controlId="formFileSm" className="mb-3">
                 <Form.Control type="file" size="sm" name="image" onChange={handleOnChange} />
             </Form.Group>

@@ -13,6 +13,7 @@ const Profile = (props) => {
     const [ userDesiredPosition, setUserDesiredPosition ] = useState([]);
     const [ userEligibility, setUserEligibility ] = useState([]);
     const [ userTraining, setUserTraining ] = useState([]);
+    const [ pdf, setPdf ] = useState([{}]) 
 
     useEffect(()=>{ 
 
@@ -50,6 +51,17 @@ const Profile = (props) => {
             setUserTraining(arr);
         });
 
+        axios.post('http://localhost/hraid_api/get_pdf.php', {
+        emp_id: emp_id,
+        }).then(function (response) {
+
+            let arr = response.data;
+            setPdf(arr);
+            console.log(arr);
+
+        });
+
+
 
     },[])
 
@@ -79,26 +91,34 @@ const Profile = (props) => {
                     <Col md="8">
                         <div style={{background:'white', padding:'15px'}}>
                             <Row>
-                                <Col md="2" style={{textAlign:'right'}}>
+                                <Col md="4" style={{textAlign:'right'}}>
+                                    Date Application Received:
+                                </Col>
+                                <Col md="8" style={{textAlign:'left'}}>
+                                    {userInfo.emp_datereceived}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md="4" style={{textAlign:'right'}}>
                                     Birthday:
                                 </Col>
-                                <Col md="10" style={{textAlign:'left'}}>
+                                <Col md="8" style={{textAlign:'left'}}>
                                     {userInfo.emp_birthday}
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md="2" style={{textAlign:'right'}}>
+                                <Col md="4" style={{textAlign:'right'}}>
                                     Gender:
                                 </Col>
-                                <Col md="10" style={{textAlign:'left'}}>
+                                <Col md="8" style={{textAlign:'left'}}>
                                     {userInfo.emp_gender}
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md="2" style={{textAlign:'right'}}>
+                                <Col md="4" style={{textAlign:'right'}}>
                                     Religion:
                                 </Col>
-                                <Col md="10" style={{textAlign:'left'}}>
+                                <Col md="8" style={{textAlign:'left'}}>
                                     {userInfo.emp_religion}
                                 </Col>
                             </Row>
@@ -174,6 +194,41 @@ const Profile = (props) => {
                                     {userInfo.emp_dataonpersonwithdisability}
                                 </Col>
                             </Row>
+
+                            <hr/>
+
+                            <Row>
+                                <Col>
+                                <h3>Files</h3>
+                                <hr />
+                                    <ul>
+                                        {
+                                            pdf.map((value, index)=>
+                                                <li key={index}>
+                                                    <div>
+                                                       <Row>
+                                                            <Col style={{textAlign:'right'}}>Date:</Col>
+                                                            <Col style={{textAlign:'left'}}>{value.pdf_date}</Col>
+                                                       </Row>
+                                                       <Row>
+                                                            <Col style={{textAlign:'right'}}>Remarks:</Col>
+                                                            <Col style={{textAlign:'left'}}>{value.pdf_remarks}</Col>
+                                                       </Row>
+                                                       <Row>
+                                                            <Col style={{textAlign:'right'}}>File:</Col>
+                                                            <Col style={{textAlign:'left'}}>
+                                                              
+                                                                    <a href={"http://localhost/hraid_api/upload_pdf/" + value.pdf_pdf_name } target="_blank"> {value.pdf_pdf_name}</a>
+                                                            </Col>
+                                                       </Row>
+                                                    </div>
+                                                    <hr/>
+                                                </li>
+                                            )
+                                        }
+                                    </ul>
+                                </Col>
+                            </Row>
                         </div>
                     </Col>
                     <Col md="4">
@@ -183,7 +238,7 @@ const Profile = (props) => {
                             <hr/>
                             <div style={{display:'inline-grid'}}>
                                 <Button variant="success" size="sm">
-                                    <Link className='text-white' to="/assestment">Assestment</Link>
+                                <Link className="text-white" to={ "/assestment/" + userInfo.emp_id}>Assestment</Link>
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
@@ -191,7 +246,7 @@ const Profile = (props) => {
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
-                                    View PDF File
+                                    <Link className="text-white" to={ "/uploadpdf/" + userInfo.emp_id}>Upload PDF File</Link>
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
