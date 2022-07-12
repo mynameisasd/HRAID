@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import GlobalFooter from './GlobalFooter';
 import GlobalNavigation from './GlobalNavigation';
 import axios from 'axios';
@@ -10,6 +10,7 @@ const UploadProfilePicture = () => {
 
     const { emp_id } = useParams();
     const [ image, setImage ] = useState();    
+    const navigate = useNavigate();
 
     function handleOnChange(e){
         setImage(e.target.files[0]);
@@ -27,17 +28,13 @@ const UploadProfilePicture = () => {
             
         axios.post('http://localhost:80/hraid_api/upload_picture.php', formdata )
             .then(function (response) {
- 
-              console.log(response)
+                
+            alert("File Uploaded");
+            navigate('/profile/' + emp_id);
             
         });
 
-        axios.post('http://localhost:80/hraid_api/upload_picture.php', [{ emp_id : emp_id}] )
-        .then(function (response) {
-
-            console.log(response)
-        
-        });
+     
     }
 
     return (

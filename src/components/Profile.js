@@ -187,7 +187,7 @@ const Profile = (props) => {
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
-                                <Link className="text-white" to={ "/uploadpp/" + userInfo.emp_id}>Upload Picture</Link>
+                                    <Link className="text-white" to={ "/uploadpp/" + userInfo.emp_id}>Upload Picture</Link>
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
@@ -195,7 +195,7 @@ const Profile = (props) => {
                                 </Button>
                                 <br/>
                                 <Button variant="info" size="sm">
-                                    Update Info
+                                    <Link className="text-white" to={ "/editemployee/" + userInfo.emp_id}>Update Profile</Link>
                                 </Button>
                                 <br/>
                                 <hr/>
