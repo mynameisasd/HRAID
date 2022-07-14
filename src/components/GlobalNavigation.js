@@ -30,7 +30,6 @@ const GlobalNavigation = () => {
 
     return (
         <Row>
-            
             <Col md="10">
                 <Navbar style={{padding:"10px"}} bg="light" expand="lg">
                     <Navbar.Brand href="#home"><img style={{width:"50px"}} src={MyImage} alt="Hr Logo" /> HRAID</Navbar.Brand>
@@ -38,7 +37,8 @@ const GlobalNavigation = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link><Link to="/dashboard">Dashboard</Link></Nav.Link>
-                            <Nav.Link><Link to="/addemployee">Add Employee</Link></Nav.Link>
+                            <Nav.Link><Link to="/createposition">Create Position</Link></Nav.Link>
+                            <Nav.Link><Link to="/addemployee">Add Applicants</Link></Nav.Link>
                             <Nav.Link><Link to="/records">Records</Link></Nav.Link>
                             {/* Dropdown */}
                             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -53,9 +53,7 @@ const GlobalNavigation = () => {
                 </Navbar>
             </Col>
             <Col md="2" style={{display:'grid', justifyItems:'center', alignItems:'center', background:'#eee'}}>
-                
-                        <Button variant="danger" size="sm" onClick={logout}>LOGOUT</Button>
-                
+                <Button variant="danger" size="sm" onClick={logout}>LOGOUT</Button>
             </Col>
         </Row>
     )

@@ -16,6 +16,7 @@ import UserDeleteConfirmation from './components/UserDeleteConfirmation';
 import UploadProfilePicture from './components/UploadProfilePicture';
 import EditEmployee from './components/EditEmployee';
 import UploadPDFFile from './components/UploadPDFFile';
+import CreatePosition from './components/CreatePosition';
 
 
 //CDN Bootstrap
@@ -38,11 +39,13 @@ function App() {
           <Route path='/addemployee' element={<AddEmployee />} />
           <Route path='/records' element={<Records />} />
           <Route path='/profile/:emp_id' element={<Profile />} />
-          <Route path='/assestment/:emp_id' element={<Assestment />} />
+          <Route path='/assestment/:emp_id/:dp_id/:dp_position' element={<Assestment />} />
           <Route path='/delete/:emp_id' element={<UserDeleteConfirmation />} />
           <Route path='/uploadpp/:emp_id' element={<UploadProfilePicture />} />
           <Route path='/editemployee/:emp_id' element={<EditEmployee />} />
           <Route path='/uploadpdf/:emp_id' element={<UploadPDFFile />} />
+          <Route path='/createposition' element={<CreatePosition />} />
+
         </Routes>
       </BrowserRouter>
     </div>

@@ -125,6 +125,7 @@ const EditEmployee = () => {
                setDesiredPosition([]);
                setTraining([]);
                setEligibility([]);
+               console.log(response.data);
                navigate('/profile/' + emp_id); 
             
             })
@@ -319,8 +320,8 @@ const EditEmployee = () => {
                             <FloatingLabel controlId="floatingSelectGrid" label="Gender">
                             <Form.Select aria-label="Floating label select example" name="genter"  defaultValue={userInfo.emp_gender} {...register("gender")} >
                                 <option>Open this select menu</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                                <option value="Male" selected={userInfo.emp_gender == 'Male' ? true : false} >Male</option>
+                                <option value="Female" selected={userInfo.emp_gender == 'Female' ? true : false} >Female</option>
                             </Form.Select>
                             </FloatingLabel>
                         </Col>

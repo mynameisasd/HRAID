@@ -1,14 +1,63 @@
-import React from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
-import { useParams } from 'react-router'
+import React, { useEffect, useState } from 'react'
+import { Container, Row, Col, Form, Button, FloatingLabel } from 'react-bootstrap'
+import { useNavigate, useParams } from 'react-router'
 import EmployeeBasicInfo from './EmployeeBasicInfo'
 import GlobalFooter from './GlobalFooter'
 import GlobalNavigation from './GlobalNavigation'
+import axios from 'axios'
+import { useForm } from 'react-hook-form'
 
 
 const Assestment = () =>{
     
-    const { emp_id } = useParams();
+    const { emp_id, dp_id, dp_position } = useParams();
+    const {register, handleSubmit, errors, reset } = useForm();
+    const [ assestment, setAssestment ] = useState([{}]);
+    const navigate = useNavigate()
+
+    const onSubmit = (data) =>
+    {
+        data.emp_id = emp_id;
+        data.dp_id = dp_id;
+        
+        axios.post('http://localhost/hraid_api/add_assestment.php', data 
+        ).then(function (response) {
+
+            alert('data updated')
+            navigate('/profile/' + emp_id)
+
+        });
+
+       
+    }
+
+
+    useEffect(() =>{
+
+        let pass_id = {
+            emp_id: emp_id,
+            dp_id: dp_id
+        }
+
+        axios.post('http://localhost/hraid_api/get_assestment.php', pass_id 
+        ).then(function (response) {
+          
+            if(response.data == '')
+            {
+                alert('null')
+            }
+            else
+            {
+                let arr = response.data;
+                setAssestment(arr[0]);
+                reset({ ...arr[0]});
+            }
+           
+        });
+
+    },[])
+
+    
 
     return (
         <Container>
@@ -24,37 +73,145 @@ const Assestment = () =>{
                 <Row>
                     <Col>
                         <div style={{background:'white', padding:'15px', }}>
-                            <h1>Assestment</h1>
+                            <h1>Assestment {dp_id}</h1>
+                            <h2 style={{color:'green'}}>Position: {dp_position}</h2>
                             <br />
-                            <Row className='g-2'>
-                                <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
-                                    <Form.Check aria-label="option 1" label="PASS INITIAL ASSESSMENT?" />
-                                </Col>
-                                <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
-                                    <Form.Check aria-label="option 1" label="TOOK THE EXAM?" />
-                                </Col>
-                                <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
-                                    <Form.Check aria-label="option 1" label="PASSED THE EXAM?" />
-                                </Col>
-                                <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
-                                    <Form.Check aria-label="option 1" label="TOOK THE INTERVIEW?" />
-                                </Col>
-                                <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
-                                    <Form.Check aria-label="option 1" label="RECOMMENDED TO MAYOR?" />
-                                </Col>
-                                <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
-                                    <Form.Check aria-label="option 1" label="ISSUED APPT" />
-                                </Col>
-                            </Row>
-                            <br/>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <Row className='g-2'>
+                            
+                                        <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
+                                            {
+                                                assestment.ass_initial_assestment == 'passed'  ? 
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="Initial Assestment?" 
+                                                    value="passed" 
+                                                    name="initial_assestment" 
+                                                    defaultChecked={true}
+                                                    {...register('initial_assestment')}
+                                                /> :
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="Initial Assestment?" 
+                                                    value="passed" 
+                                                    name="initial_assestment" 
+                                                    {...register('initial_assestment')}
+                                                />
+                                            }
+                                            
+
+                                        </Col>
+                                        <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
+                                            {
+                                                assestment.ass_took_the_exam == 'passed' ?
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="TOOK THE EXAM?" 
+                                                    value="passed" 
+                                                    name="took_the_exam"  
+                                                    defaultChecked={true}
+                                                    {...register('took_the_exam')}
+                                                /> :
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="TOOK THE EXAM?" 
+                                                    value="passed" 
+                                                    name="took_the_exam"  
+                                                    {...register('took_the_exam')}
+                                                />
+                                            }
+                                        </Col>
+                                        <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
+                                            {
+                                                assestment.ass_took_the_exam == 'passed' ?
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="PASSED THE EXAM?" 
+                                                    value="passed" 
+                                                    name="passed_the_exam"
+                                                    defaultChecked={true}
+                                                    {...register('passed_the_exam')} 
+                                                /> :
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="PASSED THE EXAM?" 
+                                                    value="passed" 
+                                                    name="passed_the_exam"
+                                                    {...register('passed_the_exam')} 
+                                                />
+                                            }
+                                        </Col>
+                                        <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
+                                            {
+                                                assestment.ass_took_the_interview == 'passed' ? 
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="TOOK THE INTERVIEW?" 
+                                                    value="passed" 
+                                                    name="took_the_interview" 
+                                                    defaultChecked={true}
+                                                    {...register('took_the_interview')} 
+                                                /> :
+                                                <Form.Check 
+                                                    aria-label="option 1" 
+                                                    label="TOOK THE INTERVIEW?" 
+                                                    value="passed" 
+                                                    name="took_the_interview" 
+                                                    {...register('took_the_interview')} 
+                                                />
+                                                }
+                                        </Col>
+                                        <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
+                                                {
+                                                    assestment.ass_recommended_to_mayor == 'passed' ?
+                                                        <Form.Check 
+                                                        aria-label="option 1" 
+                                                        label="RECOMMENDED TO MAYOR?" 
+                                                        value="passed" 
+                                                        name="recommended_to_mayor" 
+                                                        defaultChecked={true}
+                                                        {...register('recommended_to_mayor')} 
+                                                    /> :
+                                                        <Form.Check 
+                                                            aria-label="option 1" 
+                                                            label="RECOMMENDED TO MAYOR?" 
+                                                            value="passed" 
+                                                            name="recommended_to_mayor" 
+                                                            {...register('recommended_to_mayor')} 
+                                                        />
+                                                }
+                                        </Col>
+                                        <Col md="2" style={{border:'1px solid #eee',padding:'5px'}}>
+                                                {
+                                                    assestment.ass_issued_appointment == 'passed' ? 
+                                                    <Form.Check 
+                                                        aria-label="option 1" 
+                                                        label="ISSUED APPT" 
+                                                        defaultValue="passed" 
+                                                        name="issued_appointment" 
+                                                        defaultChecked={true}
+                                                        {...register('issued_appointment')} 
+                                                    /> :
+                                                    <Form.Check 
+                                                        aria-label="option 1" 
+                                                        label="ISSUED APPT" 
+                                                        value="passed" 
+                                                        name="issued_appointment" 
+                                                        {...register('issued_appointment')} 
+                                                    />
+                                                }
+                                        </Col>
+                                </Row>
+                                <br/>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                     <Form.Label>Remarks</Form.Label>
                                     <Form.Control as="textarea" rows={3} />
                                 </Form.Group>
-                            <br />
-                            <Button variant="success" size="sm">
-                                Save
-                            </Button>
+                                <br />
+                                <Button type="submit" variant="success" size="sm">
+                                    Save
+                                </Button>
+                            </form>
                         </div>
                     </Col>
                 </Row>

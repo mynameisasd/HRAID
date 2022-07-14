@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import GlobalNavigation from './GlobalNavigation'
 import GlobalFooter from './GlobalFooter'
+import ConvertedOfficeIdToName from './ConvertedOfficeIdToName'
 const AddEmployee = () => {
 
     const {register, handleSubmit, errors, reset } = useForm();
@@ -11,6 +12,7 @@ const AddEmployee = () => {
     // <------------------------ Desired Position Array
     const [ desiredPosition, setDesiredPosition ] = useState([])
     const [ newDesiredPosition, setNewDesiredPosition ] = useState('')
+    const [ loadCreatedPosition, setLoadCreatedPosition ] = useState([{}])
 
     function handleNewDesiredPositionChange(e){
 
@@ -105,11 +107,20 @@ const AddEmployee = () => {
                setEligibility([]);
             
             })
-            .catch(function (error) {
-            console.log(error);
-            });
+            
 
     }
+
+    useEffect(()=> {
+
+        axios.post('http://localhost:80/hraid_api/get_all_available_position.php',  )
+        .then(function (response) {
+
+           setLoadCreatedPosition(response.data)
+        
+        })
+
+    },[])
 
     return (
         <Container>
@@ -158,9 +169,21 @@ const AddEmployee = () => {
                     <hr />
                     <Row className='g-2'>
                         <Col md="5">
-                            <FloatingLabel controlId="desiredposition" label="Desired Position">
+                            {/* <FloatingLabel controlId="desiredposition" label="Desired Position">
                                 <Form.Control size='sm' type="text" placeholder="Desired Position" value={newDesiredPosition} onChange={handleNewDesiredPositionChange} />
+                            </FloatingLabel> */}
+
+                            <FloatingLabel controlId="floatingSelectGrid" label="Desired Position">
+                            <Form.Select aria-label="Floating label select example" name="desired_position"  onChange={handleNewDesiredPositionChange} >
+                                <option>Open this select menu</option>
+                                {
+                                    loadCreatedPosition.map((value, index) =>
+                                        <option value={value.p_id}>{ value.p_position_title + ' | '  } <ConvertedOfficeIdToName office_id={value.p_office} /></option>
+                                    )
+                                }
+                            </Form.Select>
                             </FloatingLabel>
+
                         </Col>
                         <Col md="1">
                             <button size="sm" style={{color:"white",}} type="button" class="btn btn-info" onClick={addDesiredPositionToArray} >ADD</button>

@@ -42,9 +42,11 @@ const UploadPDFFile = () => {
             
         axios.post('http://localhost:80/hraid_api/upload_pdf.php', formdata )
             .then(function (response) {
-            
-            alert("File Uploaded");
+
+            alert('File Uploaded')
             navigate('/profile/' + emp_id);
+            console.log(response.data);
+            
       
         });
 
@@ -59,7 +61,6 @@ const UploadPDFFile = () => {
 
             let arr = response.data;
             setPdfInfo(arr);
-            console.log(response.data);
 
         });
 
@@ -74,11 +75,8 @@ const UploadPDFFile = () => {
         }).then(function (response) {
 
             let arr = response.data;
-            console.log(response.data);
-            setPdfInfo(response.data);
-            // setDate('');
-            // setPdf('')
-            // setRemarks('')
+            setPdfInfo(arr);
+         
 
         });
     }

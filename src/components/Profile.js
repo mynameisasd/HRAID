@@ -5,6 +5,7 @@ import GlobalNavigation from './GlobalNavigation'
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import MyImage from '../img/User-avatar.png';
+import GlobalAssestmentTable from './GlobalAssestmentTable';
 
 const Profile = (props) => {
 
@@ -57,7 +58,6 @@ const Profile = (props) => {
 
             let arr = response.data;
             setPdf(arr);
-            console.log(arr);
 
         });
 
@@ -137,10 +137,24 @@ const Profile = (props) => {
                                    Desired Position:
                                 </Col>
                                 <Col md="8" style={{textAlign:'left'}}>
+                                    <small style={{color:'red', font:'8px'}}><i>Note: Once the Position is assest it cant be altered anymore, please contact the developer</i></small>
                                     <ul>
                                         {
                                             userDesiredPosition.map((value, index) =>
-                                                <li key={index}>{value.dp_position}</li>
+                                                <li key={index}>
+                                                    <div style={{padding:'15px'}}>
+                                                        {value.dp_position}
+
+                                                        <Button style={{float:'right'}} variant="success" size="sm">
+                                                            <Link className="text-white" to={ "/assestment/" + userInfo.emp_id + "/" + value.dp_id + '/' + value.dp_position}>Assestment</Link>
+                                                        </Button>
+                                                    </div>
+                                                    <GlobalAssestmentTable 
+                                                        dp_id={value.dp_id} 
+                                                        emp_id={emp_id}  
+                                                        />
+                                                    <hr/>
+                                                </li>
                                           )
                                         }
                                     </ul>
@@ -237,9 +251,7 @@ const Profile = (props) => {
                             <h4>Settings</h4>
                             <hr/>
                             <div style={{display:'inline-grid'}}>
-                                <Button variant="success" size="sm">
-                                <Link className="text-white" to={ "/assestment/" + userInfo.emp_id}>Assestment</Link>
-                                </Button>
+                               
                                 <br/>
                                 <Button variant="info" size="sm">
                                     <Link className="text-white" to={ "/uploadpp/" + userInfo.emp_id}>Upload Picture</Link>
