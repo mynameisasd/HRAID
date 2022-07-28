@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { propTypes } from 'react-bootstrap/esm/Image'
 
 const ConvertedOfficeIdToName = (props) => {
 
-    const [ office, setOffice ] = useState('');
+    const [ office, setOffice ] = useState([{}]);
 
-    useEffect(()=>{
+
 
         let office_id = {
             office_id : props.office_id
@@ -20,10 +19,8 @@ const ConvertedOfficeIdToName = (props) => {
         })
 
 
-    },[])
-
     return (
-        <div>{office.off_office_name}</div>
+        <div>{office.off_office_name} </div>
     )
 }
 

@@ -6,6 +6,7 @@ import GlobalFooter from './GlobalFooter'
 import GlobalNavigation from './GlobalNavigation'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
+import ConvertedPositionIdtoName from './ConvertedPositionIdtoName'
 
 
 const Assestment = () =>{
@@ -19,12 +20,14 @@ const Assestment = () =>{
     {
         data.emp_id = emp_id;
         data.dp_id = dp_id;
+        data.dp_position = dp_position;
         
         axios.post('http://localhost/hraid_api/add_assestment.php', data 
         ).then(function (response) {
 
             alert('data updated')
             navigate('/profile/' + emp_id)
+            console.log(response.data)
 
         });
 
@@ -44,7 +47,7 @@ const Assestment = () =>{
           
             if(response.data == '')
             {
-                alert('null')
+                //if assestment is null
             }
             else
             {
@@ -73,8 +76,8 @@ const Assestment = () =>{
                 <Row>
                     <Col>
                         <div style={{background:'white', padding:'15px', }}>
-                            <h1>Assestment {dp_id}</h1>
-                            <h2 style={{color:'green'}}>Position: {dp_position}</h2>
+                            <h1>Assestment  </h1>
+                            <h4 style={{color:'green'}}>Position: <strong><ConvertedPositionIdtoName position_id={dp_position} /></strong> </h4>
                             <br />
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <Row className='g-2'>
@@ -203,10 +206,10 @@ const Assestment = () =>{
                                         </Col>
                                 </Row>
                                 <br/>
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                {/* <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                     <Form.Label>Remarks</Form.Label>
                                     <Form.Control as="textarea" rows={3} />
-                                </Form.Group>
+                                </Form.Group> */}
                                 <br />
                                 <Button type="submit" variant="success" size="sm">
                                     Save

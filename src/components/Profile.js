@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, FloatingLabel, Form } from 'react-bootstrap'
 import GlobalFooter from './GlobalFooter'
 import GlobalNavigation from './GlobalNavigation'
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import MyImage from '../img/User-avatar.png';
 import GlobalAssestmentTable from './GlobalAssestmentTable';
+import ConvertedPositionIdtoName from './ConvertedPositionIdtoName';
 
 const Profile = (props) => {
 
@@ -14,9 +15,31 @@ const Profile = (props) => {
     const [ userDesiredPosition, setUserDesiredPosition ] = useState([]);
     const [ userEligibility, setUserEligibility ] = useState([]);
     const [ userTraining, setUserTraining ] = useState([]);
-    const [ pdf, setPdf ] = useState([{}]) 
+    const [ pdf, setPdf ] = useState([{}])
+    const [ comments, setComments ] = useState('');
+
+
+    function handleCommentsChange(e){
+
+        setComments(e.target.value)
+
+    }
+
+    function submitComments(){
+
+        axios.post('http://localhost/hraid_api/submit_comments.php', {
+        emp_id: emp_id,
+        comments: comments
+        }).then(function (response) {
+
+            console.log(response.data);
+        
+        });
+
+    }
 
     useEffect(()=>{ 
+        
 
         axios.post('http://localhost/hraid_api/get_user_profile.php', {
         emp_id: emp_id,
@@ -143,11 +166,13 @@ const Profile = (props) => {
                                             userDesiredPosition.map((value, index) =>
                                                 <li key={index}>
                                                     <div style={{padding:'15px'}}>
-                                                        {value.dp_position}
+                                                        {}
+                                                        <ConvertedPositionIdtoName position_id={value.dp_position} />
 
                                                         <Button style={{float:'right'}} variant="success" size="sm">
                                                             <Link className="text-white" to={ "/assestment/" + userInfo.emp_id + "/" + value.dp_id + '/' + value.dp_position}>Assestment</Link>
                                                         </Button>
+                                                        <br/>
                                                     </div>
                                                     <GlobalAssestmentTable 
                                                         dp_id={value.dp_id} 

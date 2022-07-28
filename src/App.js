@@ -17,6 +17,7 @@ import UploadProfilePicture from './components/UploadProfilePicture';
 import EditEmployee from './components/EditEmployee';
 import UploadPDFFile from './components/UploadPDFFile';
 import CreatePosition from './components/CreatePosition';
+import Appointment from './components/Appointment';
 
 
 //CDN Bootstrap
@@ -31,7 +32,8 @@ import CreatePosition from './components/CreatePosition';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      {/* <BrowserRouter basename='/hraid-react'> */} 
+      <BrowserRouter >
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />} />
@@ -45,7 +47,7 @@ function App() {
           <Route path='/editemployee/:emp_id' element={<EditEmployee />} />
           <Route path='/uploadpdf/:emp_id' element={<UploadPDFFile />} />
           <Route path='/createposition' element={<CreatePosition />} />
-
+          <Route path='/appointment/:emp_id/:pos_id' element={<Appointment />} />
         </Routes>
       </BrowserRouter>
     </div>

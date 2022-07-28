@@ -23,6 +23,10 @@ const Records = () => {
         }
     ]);
 
+    const [ loading, setLoading  ] = useState(true);
+    const [ defaultData, setDefaultData ] = useState([{}])
+    const [ filter, setFilter ] = useState('');
+
      const columns =  [
         {
             name: 'ID No.',
@@ -74,14 +78,57 @@ const Records = () => {
  
     useEffect(() => {
    
-        axios.get('http://localhost/hraid_api/get_employee.php')
+        axios.get('http://localhost/hraid_api/get_employee_records_page.php')
             .then(function (response) {
 
                 setEmployee(response.data);
+                setDefaultData(response.data);
+                setLoading(false);
 
             });
                    
     },[]);
+
+
+    function handleSearchChange(e){
+
+        let search = e.target.value
+
+        if(e.target.value == '')
+        {
+            let oldData = defaultData;
+            setEmployee(oldData);
+        }
+        else
+        {
+            setFilter(search.toLowerCase());
+        }
+        
+    }
+
+    function submitFilter()
+    {
+
+        var results = [];
+
+        var toSearch = filter;
+
+            for(var i=0; i<employee.length; i++) {
+                let count = 0
+                for(let key in employee[i]) {
+                    let tolowercase = employee[i][key]; //conver to lower case
+                    if(tolowercase.toLowerCase().indexOf(toSearch)!=-1) {
+
+                        results.push(employee[i]);
+                        
+                    }
+
+                }
+            }
+  
+            setEmployee(results)
+        
+    }
 
 
   
@@ -99,9 +146,14 @@ const Records = () => {
                                 <h2 style={{textAlign:"left"}}>RECORDS</h2>
                             </Col>
                             <Col>
-                                <FloatingLabel controlId="search" label="Search.....">
-                                    <Form.Control size='sm' type="text" placeholder="Search....." />
-                                </FloatingLabel>
+                                <div>
+                                    <FloatingLabel controlId="search" label="Search.....">
+                                        <Form.Control size='sm' type="text" placeholder="Search....." onChange={handleSearchChange} />
+                                    </FloatingLabel>
+                                    <br/>   
+                                    <Button className='text-white' variant="info" size="sm" onClick={submitFilter}>Filter</Button>
+                                </div>
+                                
                             </Col>
                         </Row>
 
@@ -114,6 +166,7 @@ const Records = () => {
                             pointerOnHover={true}
                             responsive={true}
                             striped={true}
+                            progressPending={loading}
                         />
                     </div>
                 </Col>

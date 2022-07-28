@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import GlobalNavigation from './GlobalNavigation'
 import GlobalFooter from './GlobalFooter'
 import ConvertedOfficeIdToName from './ConvertedOfficeIdToName'
+import ConvertedPositionIdtoName from './ConvertedPositionIdtoName'
 const AddEmployee = () => {
 
     const {register, handleSubmit, errors, reset } = useForm();
@@ -178,8 +179,9 @@ const AddEmployee = () => {
                                 <option>Open this select menu</option>
                                 {
                                     loadCreatedPosition.map((value, index) =>
-                                        <option value={value.p_id}>{ value.p_position_title + ' | '  } <ConvertedOfficeIdToName office_id={value.p_office} /></option>
+                                        <option key={index} value={value.p_id}> { value.p_position_title + ' | '  } <ConvertedOfficeIdToName office_id={value.p_office} /> </option>
                                     )
+
                                 }
                             </Form.Select>
                             </FloatingLabel>
@@ -198,7 +200,7 @@ const AddEmployee = () => {
                                             <Row >           
                                                 <Col md="8">
                                                     <div className='align-content-center'>
-                                                        {position}
+                                                    <ConvertedPositionIdtoName position_id={position}/>
                                                     </div>
                                                 </Col>
                                                 <Col md="4">

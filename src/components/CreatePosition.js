@@ -5,6 +5,7 @@ import GlobalNavigation from './GlobalNavigation';
 import axios from 'axios';
 
 import { useForm } from 'react-hook-form';
+import ConvertedEmployeeIdToName from './ConvertedEmployeeIdToName';
 
 
 const CreatePosition = () => {
@@ -16,12 +17,18 @@ const CreatePosition = () => {
     //submit the position
     const onSubmit = (data) =>{
 
+        
         axios.post('http://localhost:80/hraid_api/add_position.php', data )
         .then(function (response) {
            alert('Position Created');
            reset();
            reRenderQueryPosition(data.office)
         })
+
+
+        //to keep the select not blank
+        let temp = office;
+        setOffice(temp);
 
 
 
@@ -61,14 +68,22 @@ const CreatePosition = () => {
         let position_id_obj = {
             position_id: position_id
         }
-        axios.post('http://localhost:80/hraid_api/delete_position.php', position_id_obj  )
-        .then(function (response) {
 
-         console.log(response.data);
-         reRenderQueryPosition(position_office_id);
-       
+
+        if (window.confirm("Delete Confirnation!") == true) {
+            
+
+            axios.post('http://localhost:80/hraid_api/delete_position.php', position_id_obj  )
+            .then(function (response) {
+
+            reRenderQueryPosition(position_office_id);
         
-        })
+            
+            })
+
+          }
+        
+        
 
     }
 
@@ -100,6 +115,7 @@ const CreatePosition = () => {
                         <h2>CREATE POSITION</h2>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Form.Select name="office" {...register('office')}>
+                                <option>open this select menu</option>
                                 {
                                     office.map((value, index)=>
                                     <option key={index} value={value.off_id}>{value.off_office_name}</option>
@@ -163,7 +179,7 @@ const CreatePosition = () => {
                                             <td>{value.p_position_title}</td>
                                             <td>{value.p_plantilla_item_no}</td>
                                             <td>{value.p_salary_grade}</td>
-                                            <td>{value.p_emp_id_appointed}</td>
+                                            <td >{value.p_emp_id_appointed == 0 ? <p style={{color:'green'}}>Vacant</p> : <ConvertedEmployeeIdToName emp_id={value.p_emp_id_appointed}/> }</td>
                                             <td><Button variant="danger" onClick={()=> deletePosition(value.p_id, value.p_office)} size="sm">Delete</Button></td>
                                         </tr>
                                     )

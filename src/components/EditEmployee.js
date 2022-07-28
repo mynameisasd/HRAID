@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import GlobalNavigation from './GlobalNavigation'
 import GlobalFooter from './GlobalFooter'
 import { useNavigate, useParams } from 'react-router'
+import ConvertedOfficeIdToName from './ConvertedOfficeIdToName'
+import ConvertedPositionIdtoName from './ConvertedPositionIdtoName'
 
 
 const EditEmployee = () => {
@@ -13,6 +15,8 @@ const EditEmployee = () => {
     const { emp_id } = useParams();
     const [ userInfo, setUserInfo ] = useState([{}]) 
     const navigate = useNavigate();
+    const [ loadCreatedPosition, setLoadCreatedPosition ] = useState([{}])
+
 
     //load the info of the employee
     useEffect(()=>{
@@ -193,6 +197,14 @@ const EditEmployee = () => {
             
         })
 
+        //load positions
+        axios.post('http://localhost:80/hraid_api/get_all_available_position.php',  )
+        .then(function (response) {
+
+           setLoadCreatedPosition(response.data)
+        
+        })
+
     },[])
 
     return (
@@ -241,11 +253,23 @@ const EditEmployee = () => {
                         </Col>
                     </Row>
                     <br/>
-                    <hr />
-                    <Row className='g-2'>
+
+                    
+                    {/* <Row className='g-2'>
                         <Col md="5">
                             <FloatingLabel controlId="desiredposition" label="Desired Position">
                                 <Form.Control size='sm' type="text" placeholder="Desired Position" value={newDesiredPosition} onChange={handleNewDesiredPositionChange} />
+                            </FloatingLabel>
+                            <FloatingLabel controlId="floatingSelectGrid" label="Desired Position">
+                            <Form.Select aria-label="Floating label select example" name="desired_position"  onChange={handleNewDesiredPositionChange} >
+                                <option>Open this select menu</option>
+                                {
+                                    loadCreatedPosition.map((value, index) =>
+                                        <option key={index} value={value.p_id}> { value.p_position_title + ' | '  } <ConvertedOfficeIdToName office_id={value.p_office} /> </option>
+                                    )
+
+                                }
+                            </Form.Select>
                             </FloatingLabel>
                         </Col>
                         <Col md="1">
@@ -261,7 +285,7 @@ const EditEmployee = () => {
                                             <Row >           
                                                 <Col md="8">
                                                     <div className='align-content-center'>
-                                                        {position}
+                                                    <ConvertedPositionIdtoName position_id={position}/>
                                                     </div>
                                                 </Col>
                                                 <Col md="4">
@@ -289,7 +313,9 @@ const EditEmployee = () => {
                             </div>
                         </Col>
                       
-                    </Row>
+                    </Row> */}
+
+
                     <hr />
                     <br/>
                     <Row className='g-2'>
