@@ -292,6 +292,7 @@ const Dashboard = () => {
                                                 <th>Title</th>
                                                 <th>Plantilla No.</th>
                                                 <th>Salary Grade</th>
+                                                <th>Posting { '&' } Closing Date</th>
                                                 <th>Appointed</th>
                                             </tr>
                                         </thead> 
@@ -303,6 +304,7 @@ const Dashboard = () => {
                                                     <td>{value.p_position_title}</td>
                                                     <td>{value.p_plantilla_item_no}</td>
                                                     <td>{value.p_salary_grade}</td>
+                                                    <td>{value.p_posting_date + ' to ' + value.p_closing_date}</td>
                                                     <td >{value.p_emp_id_appointed == 0 ? <p style={{color:'green'}}>Vacant</p> : <ConvertedEmployeeIdToName emp_id={value.p_emp_id_appointed}/> }</td>
                                                 </tr>
                                             )

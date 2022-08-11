@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Form, Button, FloatingLabel } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, FloatingLabel, Modal } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router'
 import EmployeeBasicInfo from './EmployeeBasicInfo'
 import GlobalFooter from './GlobalFooter'
@@ -14,6 +14,9 @@ const Assestment = () =>{
     const { emp_id, dp_id, dp_position } = useParams();
     const {register, handleSubmit, errors, reset } = useForm();
     const [ assestment, setAssestment ] = useState([{}]);
+    const [ dateIssued, setDateIssued ] = useState('');   
+    const [show, setShow] = useState(false);
+
     const navigate = useNavigate()
 
     const onSubmit = (data) =>
@@ -21,19 +24,55 @@ const Assestment = () =>{
         data.emp_id = emp_id;
         data.dp_id = dp_id;
         data.dp_position = dp_position;
+
         
+       
         axios.post('http://localhost/hraid_api/add_assestment.php', data 
         ).then(function (response) {
-
-            alert('data updated')
-            navigate('/profile/' + emp_id)
-            console.log(response.data)
+            
+            if(data.issued_appointment == 'passed')
+            {
+                setShow(true);
+            }
+            else
+            {
+                navigate('/profile/' + emp_id)
+            }
 
         });
-
-       
+    
+        
+        
     }
 
+    const handleDateIssuedChange = (e) => {
+        setDateIssued(e.target.value);
+    }
+
+    const submitDateIssued = () => {
+
+        if( dateIssued == '')
+        {
+            alert('Enter Date')
+        }
+        else
+        {
+            let data = {
+                date_issued: dateIssued,
+                p_id : dp_position
+            }
+    
+            axios.post('http://localhost/hraid_api/issued_appointment_date.php', data 
+            ).then(function (response) {
+    
+                setShow(false)
+                navigate('/profile/' + emp_id)
+    
+            });
+        }
+        
+
+    }
 
     useEffect(() =>{
 
@@ -221,6 +260,23 @@ const Assestment = () =>{
             </div>
 
             <br/>
+            
+            <Modal show={show} >
+                <Modal.Header closeButton>
+                <Modal.Title>Issued Appointment Date</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                        <FloatingLabel controlId="daterecieved" label="Issued Appointment Date">
+                            <Form.Control size='sm' type="date" placeholder="Date" name="date" onChange={handleDateIssuedChange}  required />
+                        </FloatingLabel>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="primary" onClick={submitDateIssued}>
+                    Submit
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
             <GlobalFooter />
         </Container>
     )

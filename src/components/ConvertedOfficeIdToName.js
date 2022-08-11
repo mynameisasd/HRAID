@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 
 const ConvertedOfficeIdToName = (props) => {
 
     const [ office, setOffice ] = useState([{}]);
-
-
 
         let office_id = {
             office_id : props.office_id

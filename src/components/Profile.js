@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Button, FloatingLabel, Form } from 'react-bootstrap'
+import { Container, Row, Col, Button, FloatingLabel, Form, Modal, ListGroup } from 'react-bootstrap'
 import GlobalFooter from './GlobalFooter'
 import GlobalNavigation from './GlobalNavigation'
 import { Link, useParams } from 'react-router-dom';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import MyImage from '../img/User-avatar.png';
 import GlobalAssestmentTable from './GlobalAssestmentTable';
 import ConvertedPositionIdtoName from './ConvertedPositionIdtoName';
+import ConvertedOfficeIdToName from './ConvertedOfficeIdToName';
 
 const Profile = (props) => {
 
@@ -17,30 +18,16 @@ const Profile = (props) => {
     const [ userTraining, setUserTraining ] = useState([]);
     const [ pdf, setPdf ] = useState([{}])
     const [ comments, setComments ] = useState('');
+    const [show, setShow] = useState(false);
+    const [ loadCreatedPosition, setLoadCreatedPosition ] = useState([{}])
+    const [ desiredPositionArray, setDesiredPositionArray ] = useState([]);
+    const [ desiredPosition, setDesiredPosition ] = useState('');
+    const [ date, setDate ] = useState('');
 
 
-    function handleCommentsChange(e){
-
-        setComments(e.target.value)
-
-    }
-
-    function submitComments(){
-
-        axios.post('http://localhost/hraid_api/submit_comments.php', {
-        emp_id: emp_id,
-        comments: comments
-        }).then(function (response) {
-
-            console.log(response.data);
-        
-        });
-
-    }
 
     useEffect(()=>{ 
-        
-
+    
         axios.post('http://localhost/hraid_api/get_user_profile.php', {
         emp_id: emp_id,
         }).then(function (response) {
@@ -85,9 +72,33 @@ const Profile = (props) => {
         });
 
 
+        axios.post('http://localhost:80/hraid_api/get_all_available_position.php',  )
+        .then(function (response) {
+
+           setLoadCreatedPosition(response.data)
+        
+        })
+
+
 
     },[])
 
+    function handleDesirePosition(e){
+
+        setDesiredPosition(e.target.value);
+
+    }
+    function handleCloseModal(){
+        setShow(false);
+    }
+
+
+    function submitDesiredPositionOnModal(){
+
+        console.log(desiredPosition)
+        console.log(date)
+
+    }
 
     return (
         <Container>
@@ -161,9 +172,13 @@ const Profile = (props) => {
                                 </Col>
                                 <Col md="8" style={{textAlign:'left'}}>
                                     <small style={{color:'red', font:'8px'}}><i>Note: Once the Position is assest it cant be altered anymore, please contact the developer</i></small>
+                                    <div className="text-right">
+                                        <Button className='text-white' variant="info" size="sm" onClick={() => setShow(true)}>Re-apply</Button>
+                                    </div>
                                     <ul>
                                         {
-                                            userDesiredPosition.map((value, index) =>
+                                            
+                                            userDesiredPosition.map((value, index) =>   
                                                 <li key={index}>
                                                     <div style={{padding:'15px'}}>
                                                         {}
@@ -295,12 +310,82 @@ const Profile = (props) => {
                                 <Button variant="danger" size="sm">
                                     <Link className="text-white" to={ "/delete/" + userInfo.emp_id}>Delete</Link>
                                 </Button>
-                                
                             </div>
                             
                         </div>
                     </Col>
                 </Row>
+
+                <Modal size="lg" show={show} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Desired Position</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                            <Row>
+                                <Col sm="10">
+                                    <FloatingLabel controlId="floatingSelectGrid" label="Desired Position">
+                                        <Form.Select aria-label="Floating label select example" name="desired_position"  onChange={handleDesirePosition} >
+                                            <option>Open this select menu</option>
+                                            {
+                                                loadCreatedPosition.map((value, index) =>
+                                                    <option key={index} value={value.p_id}> { value.p_position_title + ' | '  } <ConvertedOfficeIdToName office_id={value.p_office} /> </option>
+                                                )
+                                            }
+                                        </Form.Select>
+                                    </FloatingLabel>
+                                </Col>
+                                <Col sm="2">
+                                    <Button variant="success" onClick={()=> {
+                                        let tempDP = desiredPositionArray;
+                                        tempDP.push(desiredPosition);
+                                        setDesiredPosition('');
+                                    }} >ADD</Button>
+                                </Col>
+                            </Row>
+                            <br />
+                            <ListGroup>
+                                 {
+                                    desiredPositionArray.map((value, index)=>
+                                        
+                                        <ListGroup.Item key={index}>
+                                            <Row>
+                                                <Col sm="10">
+                                                    <ConvertedPositionIdtoName position_id={value} />
+                                                </Col>
+                                                <Col sm="2">
+                                                    <Button style={{float:'right'}} variant="danger" size="sm" onClick={
+                                                        ()=> {
+                                                            let arr = [...desiredPositionArray]
+                                                            let i = arr.indexOf(value)
+                                                            arr.splice(i, 1);
+                                                            setDesiredPositionArray(arr)
+                                                            console.log(desiredPositionArray)
+                                                        }}>
+                                                        Delete {value}
+                                                    </Button>
+                                                </Col>
+                                            </Row>
+                                        </ListGroup.Item>
+                                        
+                                    )
+                                }
+                            </ListGroup>
+                            <hr />
+                            <br />  
+                            <FloatingLabel controlId="firstname" label="Date">
+                                <Form.Control size='sm' type="date" placeholder="Date" name="date"  />
+                            </FloatingLabel>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleCloseModal}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
 
             <GlobalFooter/>

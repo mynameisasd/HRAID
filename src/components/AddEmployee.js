@@ -97,7 +97,7 @@ const AddEmployee = () => {
         data.desired_position = desiredPosition;
         data.eligibility = eligibility;
         data.training = training;
-        
+
         axios.post('http://localhost:80/hraid_api/add_employee.php', data )
             .then(function (response) {
  
@@ -109,7 +109,6 @@ const AddEmployee = () => {
             
             })
             
-
     }
 
     useEffect(()=> {
@@ -129,7 +128,7 @@ const AddEmployee = () => {
             <GlobalNavigation />
             <br/>
             <div className='form-container'>
-                <h2 style={{textAlign:"left"}}>UPDATE EMPLOYEE</h2>
+                <h2 style={{textAlign:"left"}}>ADD APPLICANT</h2>
                 <br/>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -170,10 +169,6 @@ const AddEmployee = () => {
                     <hr />
                     <Row className='g-2'>
                         <Col md="5">
-                            {/* <FloatingLabel controlId="desiredposition" label="Desired Position">
-                                <Form.Control size='sm' type="text" placeholder="Desired Position" value={newDesiredPosition} onChange={handleNewDesiredPositionChange} />
-                            </FloatingLabel> */}
-
                             <FloatingLabel controlId="floatingSelectGrid" label="Desired Position">
                             <Form.Select aria-label="Floating label select example" name="desired_position"  onChange={handleNewDesiredPositionChange} >
                                 <option>Open this select menu</option>
@@ -185,7 +180,6 @@ const AddEmployee = () => {
                                 }
                             </Form.Select>
                             </FloatingLabel>
-
                         </Col>
                         <Col md="1">
                             <button size="sm" style={{color:"white",}} type="button" class="btn btn-info" onClick={addDesiredPositionToArray} >ADD</button>
